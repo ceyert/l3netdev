@@ -1,17 +1,38 @@
-cmake_minimum_required(VERSION 3.7)
-project(virtnd)
+cmake_minimum_required(VERSION 3.10)
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/out)
 
-file(GLOB_RECURSE STACK "stack/*")
-file(GLOB_RECURSE UTILITY "utility/*")
+add_compile_options(-std=c++20 -Wall)
 
-set(COMPILATION_UNIT
-        netdev.cpp netdev.h
-        packet_processor.cpp packet_processor.h
-        virtnd.cpp ${STACK} ${UTILITY})
+set(DEFAULT_BUILD_TYPE "Release")
+if( (EXISTS "${CMAKE_SOURCE_DIR}/.git") OR (EXISTS "${CMAKE_SOURCE_DIR}/.vscode") )
+  set(DEFAULT_BUILD_TYPE "Debug")
+endif()
 
-set(DEPS_LIB_POSIX pthread)
 
-add_executable(${PROJECT_NAME} ${COMPILATION_UNIT})
-target_link_libraries(${PROJECT_NAME} ${DEPS_LIB_POSIX})
+set(APP_NAME "TapDevStack")
+
+project(${APP_NAME})
+
+#*******************************************************
+set(LIB_DIR ${PROJECT_SOURCE_DIR}/lib)
+set(STACK_DIR ${LIB_DIR}/stack)
+set(STACK_SRC ${STACK_DIR}/src)
+
+set(MODS_DIR ${PROJECT_SOURCE_DIR}/mods)
+
+set(NETDEV_DIR ${MODS_DIR}/netdev)
+set(NETDEV_SRC ${NETDEV_DIR}/src)
+
+set(PROCCESSOR_DIR ${MODS_DIR}/processor)
+set(PROCCESSOR_SRC ${PROCCESSOR_DIR}/src)
+
+#*******************************************************
+
+add_subdirectory(lib)
+add_subdirectory(mods)
+add_subdirectory(app)
+add_subdirectory(deps)
+add_subdirectory(tests)
+
+#*******************************************************
