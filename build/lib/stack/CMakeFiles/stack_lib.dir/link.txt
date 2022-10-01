@@ -1,1 +1,0 @@
-/usr/bin/clang++ -fPIC -shared -Wl,-soname,libstack_lib.so -o libstack_lib.so CMakeFiles/stack_lib.dir/src/arp.cc.o CMakeFiles/stack_lib.dir/src/ethernet.cc.o CMakeFiles/stack_lib.dir/src/icmp.cc.o CMakeFiles/stack_lib.dir/src/ip.cc.o CMakeFiles/stack_lib.dir/src/route.cc.o CMakeFiles/stack_lib.dir/src/tap.cc.o CMakeFiles/stack_lib.dir/src/utils/utils.cc.o 
